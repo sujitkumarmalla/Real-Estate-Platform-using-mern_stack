@@ -2,7 +2,6 @@ import User from "../models/user_model.js"
 import bcrypt from "bcrypt"
 import sendEmail from "../utils/sendEmail.js";
 import jwt from "jsonwebtoken"
-import { use } from "react";
 import crypto from "crypto"
 //Register
 export const register=async(req,res)=>{
@@ -52,7 +51,7 @@ export const register=async(req,res)=>{
 
 //login
 
-export const login=async()=>{
+export const login=async(req,res)=>{
     try {
         const {email,password}=req.body;
         if(!email || !password){
@@ -124,7 +123,7 @@ export const getMe=async(req,res)=>{
 export const verifyEmail=async(req,res)=>{
     try {
         const {email,code}=req.body;
-        if(!email ||code){
+        if(!email || !code){
             return res.status(400).json({message:"Email and code required"})
         }
         const user=await User.findOne({email});
@@ -202,4 +201,30 @@ export const forgotPassword = async (req, res) => {
 
 //now to reset it(password)
 
-export const reset
+export const resetPassword=async(req,res)=>{
+    try {
+        const {token}=req.params;
+        const {password}=req.body;
+        const resetPasswordToken=crypto.createHash("sha256").update(token).digest("hex");
+        const user=await User.findOne({
+            resetPasswordToken,
+            resetPasswordExpire:{$gt:Date.now()},
+        })
+        if(!user){
+          return res.status(400).json({message:"Invalid or expired password reset token",success:false})  
+        }
+        user.password=await bcrypt.hash(password,10);
+        user.resetPasswordToken=undefined;
+        user.resetPasswordExpire=undefined;
+        await user.save();
+        res.status(200).json({
+            success:true,
+            message:"Password reset succesfully"
+        })
+    } catch (error) {
+        res.status(500).json({
+            success:false,
+            message:error.message
+        })
+    }
+}
