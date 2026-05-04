@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import property from "./property.model";
+import property from "./property.model.js";
 
 
 const inquirySchema=new mongoose.Schema({
@@ -13,7 +13,7 @@ const inquirySchema=new mongoose.Schema({
         ref:"User",
         required:true,
     },
-     buyer:{
+     seller:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"User",
         required:true,
