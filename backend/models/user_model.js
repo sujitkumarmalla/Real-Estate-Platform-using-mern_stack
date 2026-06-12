@@ -48,6 +48,10 @@ const usermodel=new mongoose.Schema({
     },
     resetPasswordExpire:{
         type:Date
+    },
+    credits:{
+        type:Number,
+        default:100
     }
 },{timestamps:true});
 

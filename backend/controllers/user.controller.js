@@ -6,7 +6,7 @@ import { uploadToCloudinary } from "../utils/uploadoCloudnary.js";
 export const getProfile=async(req,res)=>{
     try {
 
-        const user=await User.findById(req.user._id).select("-Password");
+        const user=await User.findById(req.user._id).select("-password");
         res.status(200).json({
             success:true,
             user

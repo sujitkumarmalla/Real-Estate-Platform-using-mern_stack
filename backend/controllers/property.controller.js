@@ -7,8 +7,8 @@ export const addproperty=async(req,res)=>{
     try {
         let imageUrl=[];
         if(req.files && req.files.length >0){
-            for(let file in req.files){
-                const result= await uploadToCloudinary(file.buffer);
+            for(let file of req.files){
+                const result= await uploadToCloudinary(file.buffer, "properties");
                 imageUrl.push(result.secure_url)
             }
         }
@@ -43,8 +43,7 @@ export const addproperty=async(req,res)=>{
     res.json({
         success:true,
         count:allProperties.length,
-        propertis:allProperties,
-        
+        properties:allProperties,
     })
 
     } catch (error) {
@@ -178,8 +177,12 @@ export const deleteProperty=async(req,res)=>{
         };
         //delete image from cloudinary
         for(let imageUrl of property.images){
-            const publicId=imageUrl.split("/").pop().split(".")[0];
-            await cloudinary.uploader.destroy("properties/" +publicId)
+            try {
+                const publicId = imageUrl.split("/").pop().split(".")[0];
+                await cloudinary.uploader.destroy("properties/" + publicId);
+            } catch (err) {
+                console.error("Cloudinary delete error:", err);
+            }
         }
         await property.deleteOne();
         res.json({
@@ -232,6 +235,7 @@ export const getAllProperties = async (req, res) => {
       area,
       pincode,
       propertyType,
+      type,
       bhk,
       furnishing,
       status,
@@ -251,8 +255,9 @@ export const getAllProperties = async (req, res) => {
     if (area) query.area = new RegExp(area, "i");
     if (pincode) query.pincode = pincode;
 
-    if (propertyType) {
-      query.propertyType = { $in: propertyType.toLowerCase().split(",") };
+    const activeType = propertyType || type;
+    if (activeType) {
+      query.propertyType = { $in: activeType.toLowerCase().split(",") };
     }
     if (bhk) {
       if (bhk === "5+") {
@@ -409,7 +414,7 @@ export const getPropertyCounts=async(req,res)=>{
     }, {});   
     res.json({
         success:true,
-        count:formattedCounts
+        counts:formattedCounts
     })
     } catch (error) {
           res.status(500).json({

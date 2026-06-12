@@ -34,12 +34,31 @@ export const sendInquiry=async(req,res)=>{
         })
     }
 }
+// buyer view their inquiries
+export const getMyInquiries = async (req, res) => {
+    try {
+        const inquiries = await Inquiry.find({
+            buyer: req.user._id
+        }).populate("property", "title price images city area").populate("seller", "name email phone").sort({ createdAt: -1 });
+        res.json({
+            success: true,
+            count: inquiries.length,
+            inquiries
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+}
+
 //seller view inquiries
 export const getSellerInquiries=async(req,res)=>{
     try {
         const inquiries=await Inquiry.find({
             seller:req.user._id
-        }).populate("buyer","name email phone").populate("property","title price images city").sort({cratedAt:-1});
+        }).populate("buyer","name email phone").populate("property","title price images city").sort({createdAt:-1});
         res.json({
             success:true,
             count:inquiries.length,

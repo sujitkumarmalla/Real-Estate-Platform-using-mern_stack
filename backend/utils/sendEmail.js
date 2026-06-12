@@ -36,8 +36,8 @@ const sendEmail=async(options)=>{
         throw new Error(result.message || "Could not send email via Bravo")
     }
   } catch (error) {
-     console.error("Bravo API key Error",result);
-        throw new Error("Could not send email via Bravo")
+     console.error("Brevo Email Error", error);
+     throw new Error("Could not send email via Brevo");
   }  
 }
 

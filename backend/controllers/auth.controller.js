@@ -3,6 +3,8 @@ import bcrypt from "bcrypt"
 import sendEmail from "../utils/sendEmail.js";
 import jwt from "jsonwebtoken"
 import crypto from "crypto"
+import { uploadToCloudinary } from "../utils/uploadoCloudnary.js";
+
 //Register
 export const register=async(req,res)=>{
     try {
@@ -13,6 +15,13 @@ export const register=async(req,res)=>{
             message:"User already Exists"
         })
        }
+
+       let profilePicUrl = null;
+       if (req.file) {
+           const result = await uploadToCloudinary(req.file.buffer, "profiles");
+           profilePicUrl = result.secure_url;
+       }
+
        const hashedpassword=await bcrypt.hash(password,10);
        const verificationToken=Math.floor(100000+ Math.random()*900000).toString();
 
@@ -21,6 +30,7 @@ export const register=async(req,res)=>{
         email,
         password:hashedpassword,
         role,
+        profilePic: profilePicUrl,
         isApproved:role==="seller" ?false:true,
         verificationToken
        })
