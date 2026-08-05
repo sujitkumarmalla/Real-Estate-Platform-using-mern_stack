@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { sellerLayoutStyles as ls, adminDashboardStyles as ds, sellerDashboardStyles as ss } from '../../assets/dummyStyles';
 import SellerSidebar from '../../components/seller/SellerSidebar';
+import SellerHeader from '../../components/seller/SellerHeader';
 import axios from 'axios';
 import API_URL from '../../config';
 import { useAuth } from '../../context/AuthContext';
@@ -47,12 +48,7 @@ const SellerDashboard = () => {
             
             <div className={ls.contentWrapper}>
                 <main className={ls.main}>
-                    <div className={ds.headerContainer}>
-                        <div>
-                            <h1 className={ds.pageTitle}>Seller Overview</h1>
-                            <p className={ds.pageSubtitle}>Track your property performance</p>
-                        </div>
-                    </div>
+                    <SellerHeader setSidebarOpen={setSidebarOpen} title="Seller Overview" subtitle="Track your property performance" />
 
                     <div className={ds.statsGrid}>
                         <div className={ds.statCard}>

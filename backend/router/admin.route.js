@@ -1,7 +1,7 @@
 import express from "express";
 
 import {authorize, protect} from "../middlewares/auth.middlewares.js"
-import { blockUser, deleteProperty, deleteUser, getAllInquires, getAllProperties, getAllUsers, getDashboardSets, getPendingSeller,approveSeller } from "../controllers/admin.controller.js";
+import { blockUser, deleteProperty, deleteUser, getAllInquires, getAllProperties, getAllUsers, getDashboardSets, getPendingSeller,approveSeller, getAllChats, deleteChat } from "../controllers/admin.controller.js";
 
 const adminRouter=express.Router();
 
@@ -26,6 +26,9 @@ adminRouter.get("/stats",getDashboardSets);
 
 adminRouter.get("/pending-sellers",getPendingSeller);
 adminRouter.patch("/approve-seller/:id",approveSeller)
+
+adminRouter.get("/chats", getAllChats);
+adminRouter.delete("/chats/:id", deleteChat);
 
 
 

@@ -2,6 +2,7 @@ import User from "../models/user_model.js";
 import Property from "../models/property.model.js";
 import Inquiry from "../models/inquiry.model.js";
 import cloudinary from "../config/cloudinary.js";
+import Chat from "../models/chat.model.js";
 
 export const getAllUsers=async(req,res)=>{
     try {
@@ -149,6 +150,7 @@ export const getDashboardSets=async(req,res)=>{
         const totalInquiries = await Inquiry.countDocuments();
         const activeListing = await Property.countDocuments({ status: "sale" });
         const soldProperties = await Property.countDocuments({ status: "sold" });
+        const pendingSellers = await User.countDocuments({ role: "seller", isApproved: false });
         res.json({
             success:true,
             stats:{
@@ -156,7 +158,8 @@ export const getDashboardSets=async(req,res)=>{
                 totalProperties,
                 totalInquiries,
                 activeListing,
-                soldProperties
+                soldProperties,
+                pendingSellers
             }
         })
     } catch (error) {
@@ -218,5 +221,46 @@ export const getPendingSeller=async(req,res)=>{
             message: error.message
         });
 
+    }
+};
+
+// Get all chats for admin monitoring
+export const getAllChats = async (req, res) => {
+    try {
+        const chats = await Chat.find()
+            .populate("buyer", "name email profilePic")
+            .populate("seller", "name email profilePic")
+            .populate("property", "title price images")
+            .sort({ updatedAt: -1 });
+
+        res.json({
+            success: true,
+            count: chats.length,
+            chats
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+};
+
+// Delete a chat conversation
+export const deleteChat = async (req, res) => {
+    try {
+        const chat = await Chat.findByIdAndDelete(req.params.id);
+        if (!chat) {
+            return res.status(404).json({ success: false, message: "Chat not found" });
+        }
+        res.json({
+            success: true,
+            message: "Chat conversation deleted successfully"
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error.message
+        });
     }
 };

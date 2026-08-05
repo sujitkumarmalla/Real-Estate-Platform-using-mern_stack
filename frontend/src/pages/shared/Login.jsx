@@ -21,7 +21,13 @@ const Login = () => {
         setLoading(false);
 
         if (result.success) {
-            navigate('/');
+            if (result.user?.role === 'admin') {
+                navigate('/admin');
+            } else if (result.user?.role === 'seller') {
+                navigate('/seller');
+            } else {
+                navigate('/dashboard');
+            }
         } else {
             setError(result.message || 'Invalid email or password');
         }

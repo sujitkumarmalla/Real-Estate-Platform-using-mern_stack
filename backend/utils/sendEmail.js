@@ -3,7 +3,7 @@ const sendEmail=async(options)=>{
     const BREVO_API_KEY=process.env.BREVO_API_KEY?.trim();
     if(!BREVO_API_KEY){
         console.error("missing brevo_api_keys in the .env file")
-        throw new Error("Missing Email Api key")
+        return { success: false, error: "Missing Email Api key" };
     }
 
     const data={
@@ -31,13 +31,14 @@ const sendEmail=async(options)=>{
     const result=await response.json();
     if(response.ok){
         console.log("Email sent successfully",result.messageId)
+        return { success: true, messageId: result.messageId };
     }else{
         console.log("Bravo API key Error",result);
-        throw new Error(result.message || "Could not send email via Bravo")
+        return { success: false, error: result.message || "Could not send email via Bravo" };
     }
   } catch (error) {
      console.error("Brevo Email Error", error);
-     throw new Error("Could not send email via Brevo");
+     return { success: false, error: error.message || "Could not send email via Brevo" };
   }  
 }
 

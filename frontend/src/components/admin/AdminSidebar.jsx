@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { adminSidebarStyles as s } from '../../assets/dummyStyles';
-import { HiChartBar, HiUsers, HiHome, HiChatAlt2, HiLogout, HiX } from 'react-icons/hi';
+import { HiChartBar, HiUsers, HiHome, HiChatAlt2, HiLogout, HiX, HiUserAdd, HiChat } from 'react-icons/hi';
 import { useAuth } from '../../context/AuthContext';
 import Logo from '../common/Logo';
 
@@ -11,8 +11,10 @@ const AdminSidebar = ({ isOpen, setIsOpen }) => {
     const menuItems = [
         { path: '/admin', icon: <HiChartBar size={20} />, label: 'Dashboard' },
         { path: '/admin/users', icon: <HiUsers size={20} />, label: 'Manage Users' },
+        { path: '/admin/seller-requests', icon: <HiUserAdd size={20} />, label: 'Seller Requests' },
         { path: '/admin/properties', icon: <HiHome size={20} />, label: 'All Properties' },
         { path: '/admin/inquiries', icon: <HiChatAlt2 size={20} />, label: 'Inquiries' },
+        { path: '/admin/chats', icon: <HiChat size={20} />, label: 'Monitor Chats' },
     ];
 
     return (

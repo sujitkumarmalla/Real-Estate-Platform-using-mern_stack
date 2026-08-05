@@ -26,14 +26,13 @@ export const createContact=async(req,res)=>{
                 </div>
             </div>
         `;
-        try {
-            await sendEmail({
-                email:adminEmail,
-                subject:`New contact Message from ${name}`,
-                message:adminMessage,
-            })
-        } catch (error) {
-           console.error("Admin notification email failed",error.message) 
+        const emailRes = await sendEmail({
+            email:adminEmail,
+            subject:`New contact Message from ${name}`,
+            message:adminMessage,
+        });
+        if (!emailRes.success) {
+            console.error("Admin notification email failed:", emailRes.error);
         }
 
         res.status(201).json({

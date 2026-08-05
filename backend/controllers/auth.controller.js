@@ -8,7 +8,7 @@ import { uploadToCloudinary } from "../utils/uploadoCloudnary.js";
 //Register
 export const register=async(req,res)=>{
     try {
-       const {name,email,password,role}=req.body;
+       const {name,email,password,role,phone}=req.body;
        const userExists=await User.findOne({email}) 
        if(userExists){
         return res.status(400).json({
@@ -30,19 +30,20 @@ export const register=async(req,res)=>{
         email,
         password:hashedpassword,
         role,
+        phone,
         profilePic: profilePicUrl,
         isApproved:role==="seller" ?false:true,
         verificationToken
        })
 
-       try {
-        await sendEmail({
-            email,
-            subject:"Verify Your Email-real Estate Platform",
-            message:`<p>Your email verification code is :<strong>${verificationToken} </strong></p><p>Please enter this code on the verification page to active your account </p>`
-        })
-       } catch (emailError) {
-        console.error("Failed to send verification email",emailError)
+       const emailRes = await sendEmail({
+           email,
+           subject:"Verify Your Email-real Estate Platform",
+           message:`<p>Your email verification code is :<strong>${verificationToken} </strong></p><p>Please enter this code on the verification page to active your account </p>`
+       });
+       console.log(`[Email Verification Fallback] Verification code for ${email} is: ${verificationToken}`);
+       if (!emailRes.success) {
+           console.error("Failed to send verification email:", emailRes.error);
        }
        res.status(201).json({
         message:"User Registered...Please check your email for verification code...",
@@ -188,18 +189,19 @@ export const forgotPassword = async (req, res) => {
             <p>This link will expire in 15 minutes.</p>
         `;
 
-        try {
-            await sendEmail({
-                email: user.email,
-                subject: "Password Reset - Real Estate Platform",
-                message,
-            });
-            res.status(200).json({ message: "Password reset email sent", success: true });
-        } catch (error) {
+        const emailRes = await sendEmail({
+            email: user.email,
+            subject: "Password Reset - Real Estate Platform",
+            message,
+        });
+
+        if (emailRes.success) {
+            return res.status(200).json({ message: "Password reset email sent", success: true });
+        } else {
             user.resetPasswordToken = undefined;
             user.resetPasswordExpire = undefined;
             await user.save();
-            return res.status(500).json({ message: "Could not send email", success: false });
+            return res.status(500).json({ message: `Could not send email: ${emailRes.error}`, success: false });
         }
     } catch (err) {
         res.status(500).json({ message: err.message, success: false });

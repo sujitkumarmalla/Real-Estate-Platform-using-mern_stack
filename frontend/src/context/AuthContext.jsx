@@ -9,6 +9,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import API_URL from "../config";
 
+const cleanAPI_URL = API_URL.replace(/\/$/, "");
+
 const Authcontext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -43,7 +45,7 @@ export const AuthProvider = ({ children }) => {
 //login
 const login=async(email,password)=>{
     try {
-        const res=await axios.post(`${API_URL}/api/auth/login`,{
+        const res=await axios.post(`${cleanAPI_URL}/api/auth/login`,{
             email,
             password
 
@@ -53,7 +55,7 @@ const login=async(email,password)=>{
         setUser(user)
         localStorage.setItem("token",token);
         localStorage.setItem("user",JSON.stringify(user));
-        return {success:true}
+        return {success:true, user}
     } catch (error) {
         return {success:false,
             message:error.response?.data?.message || "login Denied or failed"
@@ -64,7 +66,7 @@ const login=async(email,password)=>{
 //register
 const register=async (userData)=>{
 try {
-      const res=await axios.post(`${API_URL}/api/auth/register`,
+      const res=await axios.post(`${cleanAPI_URL}/api/auth/register`,
         userData
       );
       return {
@@ -93,7 +95,7 @@ const logout=async()=>{
 const refreshUser=async()=>{
     if(!token) return;
     try {
-        const res=await axios.get(`${API_URL}/api/auth/me`,{
+        const res=await axios.get(`${cleanAPI_URL}/api/auth/me`,{
             headers:{Authorization:`Bearer ${token}`},
         }
 

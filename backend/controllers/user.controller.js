@@ -26,7 +26,7 @@ export const getPublicprofile=async(req,res)=>{
     try {
        const user=await User.findById(req.params.id).select("name profilePic role createdAt") ;
        if(!user){
-         res.status(404).json({
+         return res.status(404).json({
             success:false,
             message:"user not found"
         })

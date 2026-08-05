@@ -15,21 +15,25 @@ const Navbar = () => {
 
     const navLinks = (
         <>
-            <Link
-                to="/"
-                className={s.navLink}
-                onClick={() => setIsOpen(false)}
-            >
-                Home
-            </Link>
+            {(!user || user.role !== "admin") && (
+                <>
+                    <Link
+                        to="/"
+                        className={s.navLink}
+                        onClick={() => setIsOpen(false)}
+                    >
+                        Home
+                    </Link>
 
-            <Link
-                to="/properties"
-                className={s.navLink}
-                onClick={() => setIsOpen(false)}
-            >
-                Properties
-            </Link>
+                    <Link
+                        to="/properties"
+                        className={s.navLink}
+                        onClick={() => setIsOpen(false)}
+                    >
+                        Properties
+                    </Link>
+                </>
+            )}
 
             {user && user.role === "buyer" && (
                 <Link
@@ -51,7 +55,17 @@ const Navbar = () => {
                 </Link>
             )}
 
-            {user && (
+            {user && user.role === "admin" && (
+                <Link
+                    to="/admin"
+                    className={s.navLink}
+                    onClick={() => setIsOpen(false)}
+                >
+                    Admin Panel
+                </Link>
+            )}
+
+            {user && user.role !== "admin" && (
                 <Link
                     to="/chat"
                     className={s.navLink}

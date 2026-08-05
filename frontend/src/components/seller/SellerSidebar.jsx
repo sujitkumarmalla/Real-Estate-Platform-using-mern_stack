@@ -13,8 +13,6 @@ const SellerSidebar = ({ isOpen, setIsOpen }) => {
         { path: '/seller/properties', icon: <HiHome size={20} />, label: 'My Properties' },
         { path: '/seller/add-property', icon: <HiPlusCircle size={20} />, label: 'Add Property' },
         { path: '/seller/inquiries', icon: <HiChatAlt2 size={20} />, label: 'Inquiries' },
-        { path: '/chat', icon: <HiChatAlt2 size={20} />, label: 'Messages' },
-        { path: '/profile', icon: <HiUser size={20} />, label: 'Profile' },
         { path: '/upgrade', icon: <HiCreditCard size={20} />, label: 'Upgrade' },
     ];
 

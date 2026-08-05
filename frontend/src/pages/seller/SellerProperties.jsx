@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { sellerLayoutStyles as ls, adminDashboardStyles as ds } from '../../assets/dummyStyles';
 import SellerSidebar from '../../components/seller/SellerSidebar';
+import SellerHeader from '../../components/seller/SellerHeader';
 import axios from 'axios';
 import API_URL from '../../config';
 import { useAuth } from '../../context/AuthContext';
@@ -64,15 +65,11 @@ const SellerProperties = () => {
             
             <div className={ls.contentWrapper}>
                 <main className={ls.main}>
-                    <div className={ds.headerContainer}>
-                        <div>
-                            <h1 className={ds.pageTitle}>My Properties</h1>
-                            <p className={ds.pageSubtitle}>Manage your listings and status</p>
-                        </div>
-                        <Link to="/seller/add-property" className="btn btn-primary flex items-center gap-2">
+                    <SellerHeader setSidebarOpen={setSidebarOpen} title="My Properties" subtitle="Manage your listings and status">
+                        <Link to="/seller/add-property" className="btn btn-primary flex items-center gap-2 py-2.5 px-4 rounded-xl text-xs font-bold font-sans">
                             <HiPlus /> Add Property
                         </Link>
-                    </div>
+                    </SellerHeader>
 
                     <div className="grid grid-cols-1 gap-6">
                         {properties.length > 0 ? (

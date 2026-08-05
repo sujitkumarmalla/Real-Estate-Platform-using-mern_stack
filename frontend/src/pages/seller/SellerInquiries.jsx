@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { sellerLayoutStyles as ls, adminDashboardStyles as ds } from '../../assets/dummyStyles';
 import SellerSidebar from '../../components/seller/SellerSidebar';
+import SellerHeader from '../../components/seller/SellerHeader';
 import axios from 'axios';
 import API_URL from '../../config';
 import { useAuth } from '../../context/AuthContext';
@@ -56,12 +57,7 @@ const SellerInquiries = () => {
             
             <div className={ls.contentWrapper}>
                 <main className={ls.main}>
-                    <div className={ds.headerContainer}>
-                        <div>
-                            <h1 className={ds.pageTitle}>Buyer Leads</h1>
-                            <p className={ds.pageSubtitle}>People interested in your properties</p>
-                        </div>
-                    </div>
+                    <SellerHeader setSidebarOpen={setSidebarOpen} title="Buyer Leads" subtitle="People interested in your properties" />
 
                     <div className="flex flex-col gap-6">
                         {inquiries.length > 0 ? (

@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { adminDashboardStyles as s, adminLayoutStyles as ls } from '../../assets/dummyStyles';
 import AdminSidebar from '../../components/admin/AdminSidebar';
 import axios from 'axios';
 import API_URL from '../../config';
 import { useAuth } from '../../context/AuthContext';
-import { HiUsers, HiHome, HiChatAlt2, HiRefresh } from 'react-icons/hi';
+import { HiUsers, HiHome, HiChatAlt2, HiRefresh, HiUserAdd, HiCheckCircle, HiChat } from 'react-icons/hi';
 
 const AdminDashboard = () => {
     const [stats, setStats] = useState(null);
     const [loading, setLoading] = useState(true);
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const { token } = useAuth();
+    const navigate = useNavigate();
 
     const fetchStats = async () => {
         try {
@@ -76,6 +78,33 @@ const AdminDashboard = () => {
                                 <p className={s.statValue}>{stats?.totalInquiries || 0}</p>
                             </div>
                         </div>
+                        <div className={s.statCard}>
+                            <div className={`${s.statIconContainer} bg-amber-100 text-amber-600`}>
+                                <HiUserAdd size={24} />
+                            </div>
+                            <div>
+                                <p className={s.statTitle}>Pending Sellers</p>
+                                <p className={s.statValue}>{stats?.pendingSellers || 0}</p>
+                            </div>
+                        </div>
+                        <div className={s.statCard}>
+                            <div className={`${s.statIconContainer} bg-teal-100 text-teal-600`}>
+                                <HiCheckCircle size={24} />
+                            </div>
+                            <div>
+                                <p className={s.statTitle}>Active Listings</p>
+                                <p className={s.statValue}>{stats?.activeListing || 0}</p>
+                            </div>
+                        </div>
+                        <div className={s.statCard}>
+                            <div className={`${s.statIconContainer} bg-rose-100 text-rose-600`}>
+                                <HiHome size={24} />
+                            </div>
+                            <div>
+                                <p className={s.statTitle}>Sold Properties</p>
+                                <p className={s.statValue}>{stats?.soldProperties || 0}</p>
+                            </div>
+                        </div>
                     </div>
 
                     <div className={s.secondGrid}>
@@ -110,9 +139,9 @@ const AdminDashboard = () => {
                             <h2 className={s.adminToolsTitle}>Quick Actions</h2>
                             <p className={s.adminToolsDesc}>Common administrative tasks at your fingertips.</p>
                             <div className={s.adminToolsButtonsContainer}>
-                                <button className={s.adminToolButton}>Generate System Report</button>
-                                <button className={s.adminToolButton}>Clear Global Cache</button>
-                                <button className={s.adminToolButton}>Manage Site Settings</button>
+                                <button onClick={() => navigate('/admin/seller-requests')} className={s.adminToolButton}>Approve Seller Requests</button>
+                                <button onClick={() => navigate('/admin/chats')} className={s.adminToolButton}>Monitor Live Conversations</button>
+                                <button onClick={() => navigate('/admin/users')} className={s.adminToolButton}>Manage Platform Users</button>
                             </div>
                         </div>
                     </div>

@@ -28,6 +28,8 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import AdminUserManagement from './pages/admin/AdminUserManagement';
 import AdminPropertyManagement from './pages/admin/AdminPropertyManagement';
 import AdminInquiryManagement from './pages/admin/AdminInquiryManagement';
+import AdminSellerRequests from './pages/admin/AdminSellerRequests';
+import AdminChatManagement from './pages/admin/AdminChatManagement';
 
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -74,6 +76,8 @@ function App() {
         <Route path="/admin/users" element={<AdminUserManagement />} />
         <Route path="/admin/properties" element={<AdminPropertyManagement />} />
         <Route path="/admin/inquiries" element={<AdminInquiryManagement />} />
+        <Route path="/admin/seller-requests" element={<AdminSellerRequests />} />
+        <Route path="/admin/chats" element={<AdminChatManagement />} />
       </Route>
 
       {/* Fallback */}

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { sellerLayoutStyles as ls, adminDashboardStyles as ds } from '../../assets/dummyStyles';
 import SellerSidebar from '../../components/seller/SellerSidebar';
+import SellerHeader from '../../components/seller/SellerHeader';
 import axios from 'axios';
 import API_URL from '../../config';
 import { useAuth } from '../../context/AuthContext';
@@ -82,12 +83,7 @@ const AddProperty = () => {
             
             <div className={ls.contentWrapper}>
                 <main className={ls.main}>
-                    <div className={ds.headerContainer}>
-                        <div>
-                            <h1 className={ds.pageTitle}>List New Property</h1>
-                            <p className={ds.pageSubtitle}>Fill in the details to reach thousands of buyers</p>
-                        </div>
-                    </div>
+                    <SellerHeader setSidebarOpen={setSidebarOpen} title="List New Property" subtitle="Fill in the details to reach thousands of buyers" />
 
                     <form onSubmit={handleSubmit} className="card-premium p-8 max-w-4xl">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
