@@ -32,10 +32,12 @@ import AdminSellerRequests from './pages/admin/AdminSellerRequests';
 import AdminChatManagement from './pages/admin/AdminChatManagement';
 
 import ProtectedRoute from './components/ProtectedRoute';
+import AICalculatorBot from './components/common/AICalculatorBot';
 
 function App() {
   return (
-    <Routes>
+    <>
+      <Routes>
       {/* Shared Routes */}
       <Route path="/" element={<LandingPage />} />
       <Route path="/login" element={<Login />} />
@@ -83,6 +85,8 @@ function App() {
       {/* Fallback */}
       <Route path="*" element={<div>404 - Not Found</div>} />
     </Routes>
+    <AICalculatorBot />
+    </>
   );
 }
 
