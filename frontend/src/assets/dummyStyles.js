@@ -992,7 +992,7 @@ export const sellerProfileStyles = {
 export const forgotPasswordStyles = {
   container: "bg-bg-alt min-h-screen pt-32 max-lg:pt-28",
   centerWrapper: "container flex justify-center items-center pt-16 sm:pt-8",
-  formCard: "glass fade-in w-full max-w-[450px] p-10 sm:p-6 rounded-3xl sm:rounded-2xl shadow-card",
+  formCard: "glass fade-in w-full max-w-[450px] p-6 sm:p-10 rounded-2xl sm:rounded-3xl shadow-card",
   title: "text-[2rem] sm:text-2xl font-bold text-center mb-2 text-primary",
   subtitle: "text-center text-text-muted mb-8",
   errorMessage: "p-3 bg-red-100 text-red-600 rounded-lg mb-4 text-sm text-center",
@@ -1008,7 +1008,7 @@ export const forgotPasswordStyles = {
 export const loginStyles = {
   pageContainer: "bg-bg-alt min-h-screen pt-32 max-lg:pt-28",
   containerCenter: "container flex justify-center items-center pt-16 sm:pt-8",
-  card: "glass fade-in w-full max-w-[450px] p-10 sm:p-6 rounded-3xl sm:rounded-2xl shadow-card",
+  card: "glass fade-in w-full max-w-[450px] p-6 sm:p-10 rounded-2xl sm:rounded-3xl shadow-card",
   title: "text-[2rem] sm:text-2xl font-bold text-center mb-2 text-primary",
   subtitle: "text-center text-text-muted mb-8",
   errorAlert: "p-3 bg-red-100 text-red-600 rounded-lg mb-4 text-sm text-center",
@@ -1026,7 +1026,7 @@ export const loginStyles = {
 export const resetPasswordStyles = {
   container: "bg-bg-alt min-h-screen pt-32 max-lg:pt-28",
   centerWrapper: "container flex justify-center items-center pt-16 sm:pt-8",
-  formCard: "glass fade-in w-full max-w-[450px] p-10 sm:p-6 rounded-3xl sm:rounded-2xl shadow-card",
+  formCard: "glass fade-in w-full max-w-[450px] p-6 sm:p-10 rounded-2xl sm:rounded-3xl shadow-card",
   title: "text-[2rem] sm:text-2xl font-bold text-center mb-2 text-primary",
   subtitle: "text-center text-text-muted mb-8",
   errorMessage: "p-3 bg-red-100 text-red-600 rounded-lg mb-4 text-sm text-center",
@@ -1045,7 +1045,7 @@ export const registerStyles = {
   container: "container flex justify-center items-center pt-8 pb-16 sm:pt-4 sm:pb-8",
 
   // Form card
-  formCard: "glass fade-in w-full max-w-[500px] p-10 sm:p-6 rounded-3xl sm:rounded-2xl shadow-card",
+  formCard: "glass fade-in w-full max-w-[500px] p-6 sm:p-10 rounded-2xl sm:rounded-3xl shadow-card",
   heading: "text-[2rem] sm:text-2xl font-bold text-center mb-2 text-primary",
   subheading: "text-center text-text-muted mb-8",
 
@@ -1076,7 +1076,7 @@ export const registerStyles = {
 export const verifyEmailStyles = {
   pageContainer: "bg-bg-alt min-h-screen pt-32 max-lg:pt-28",
   containerCenter: "container flex justify-center items-center pt-16 sm:pt-8",
-  card: "glass fade-in w-full max-w-[450px] p-10 sm:p-6 rounded-3xl sm:rounded-2xl shadow-card",
+  card: "glass fade-in w-full max-w-[450px] p-6 sm:p-10 rounded-2xl sm:rounded-3xl shadow-card",
   title: "text-[2rem] sm:text-2xl font-bold text-center mb-2 text-primary",
   subtitle: "text-center text-text-muted mb-8",
   errorAlert: "p-3 bg-red-100 text-red-600 rounded-lg mb-4 text-sm text-center",

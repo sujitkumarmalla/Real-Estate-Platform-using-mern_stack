@@ -344,7 +344,13 @@ const LandingPage = () => {
                  </div>
               </div>
               <div className={s.featuresList}>
-                  {/* Additional visual element or image could go here */}
+                  <div className="grid grid-cols-2 gap-4 h-full">
+                      <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Modern Mansion" className="w-full h-[300px] md:h-full object-cover rounded-[2rem] shadow-lg hover:scale-[1.02] transition-transform duration-300" />
+                      <div className="grid grid-rows-2 gap-4 h-full">
+                          <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Luxury Villa" className="w-full h-[142px] md:h-full object-cover rounded-[2rem] shadow-lg hover:scale-[1.02] transition-transform duration-300" />
+                          <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Modern Interior" className="w-full h-[142px] md:h-full object-cover rounded-[2rem] shadow-lg hover:scale-[1.02] transition-transform duration-300" />
+                      </div>
+                  </div>
               </div>
            </div>
         </section>

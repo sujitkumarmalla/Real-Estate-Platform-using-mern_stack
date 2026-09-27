@@ -49,6 +49,12 @@ const usermodel=new mongoose.Schema({
     resetPasswordExpire:{
         type:Date
     },
+    loginOtp:{
+        type:String
+    },
+    loginOtpExpire:{
+        type:Date
+    },
     credits:{
         type:Number,
         default:100

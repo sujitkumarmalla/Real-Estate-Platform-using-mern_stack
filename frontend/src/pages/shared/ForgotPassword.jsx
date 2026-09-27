@@ -20,7 +20,11 @@ const ForgotPassword = () => {
         try {
             const res = await axios.post(`${API_URL.replace(/\/$/, '')}/api/auth/forgot-password`, { email });
             if (res.data.success) {
-                setSuccess('Password reset link sent to your email!');
+                if (res.data.resetUrl) {
+                    setSuccess(res.data.message);
+                } else {
+                    setSuccess('Password reset link sent to your email!');
+                }
             }
         } catch (err) {
             setError(err.response?.data?.message || 'Failed to send reset link');

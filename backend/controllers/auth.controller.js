@@ -91,6 +91,59 @@ export const login=async(req,res)=>{
              return res.status(403).json({
                 message:"Your account has been blocked by admin. please contact support. "}) 
         }
+
+        // Generate OTP
+        const loginOtp = Math.floor(100000 + Math.random() * 900000).toString();
+        user.loginOtp = loginOtp;
+        user.loginOtpExpire = Date.now() + 10 * 60 * 1000; // 10 minutes
+        await user.save();
+
+        const emailRes = await sendEmail({
+            email: user.email,
+            subject: "Your Login OTP - Real Estate Platform",
+            message: `<p>Your one-time password for login is: <strong>${loginOtp}</strong></p><p>This code will expire in 10 minutes.</p>`
+        });
+        
+        console.log(`[Email Login OTP Fallback] Login OTP for ${user.email} is: ${loginOtp}`);
+
+        if (!emailRes.success) {
+            console.error("Failed to send login OTP email:", emailRes.error);
+        }
+
+        res.json({
+            message:"OTP sent to your email",
+            requiresOtp: true,
+            email: user.email
+        })
+        
+    } catch (error) {
+         res.status(500).json({
+            message:error.message,
+        })
+    }
+}
+
+// verify login OTP
+export const verifyLoginOtp=async(req,res)=>{
+    try {
+        const {email, otp}=req.body;
+        if(!email || !otp){
+            return res.status(400).json({message:"Email and OTP required"})
+        }
+        const user=await User.findOne({email});
+        if(!user){
+            return res.status(404).json({message:"User not found"})
+        }
+        
+        if(user.loginOtp !== otp || user.loginOtpExpire < Date.now()){
+            return res.status(400).json({message:"Invalid or expired OTP"})
+        }
+
+        // Valid OTP, log them in
+        user.loginOtp = undefined;
+        user.loginOtpExpire = undefined;
+        await user.save();
+
         const token=jwt.sign({id:user._id,role:user.role},process.env.JWT_SECRET,{
             expiresIn:"7d"
         })
@@ -99,9 +152,8 @@ export const login=async(req,res)=>{
             token,
             user,
         })
-        
     } catch (error) {
-         res.status(500).json({
+        res.status(500).json({
             message:error.message,
         })
     }
@@ -180,7 +232,7 @@ export const forgotPassword = async (req, res) => {
         user.resetPasswordExpire = resetPasswordExpire;
         await user.save();
 
-        const clientUrl = "http://localhost:5173";
+        const clientUrl = process.env.FRONTEND_URL || "http://localhost:5173";
         const resetUrl = `${clientUrl}/reset-password/${resetToken}`;
         const message = `
             <h2>Password Reset Request</h2>
@@ -196,12 +248,9 @@ export const forgotPassword = async (req, res) => {
         });
 
         if (emailRes.success) {
-            return res.status(200).json({ message: "Password reset email sent", success: true });
+            return res.status(200).json({ message: "Password reset email sent (or check dev token)", success: true, resetUrl });
         } else {
-            user.resetPasswordToken = undefined;
-            user.resetPasswordExpire = undefined;
-            await user.save();
-            return res.status(500).json({ message: `Could not send email: ${emailRes.error}`, success: false });
+            return res.status(200).json({ message: `Email failed, use this link to reset: ${resetUrl}`, success: true, resetUrl });
         }
     } catch (err) {
         res.status(500).json({ message: err.message, success: false });

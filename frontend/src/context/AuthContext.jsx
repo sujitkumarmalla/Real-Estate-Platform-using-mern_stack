@@ -48,9 +48,13 @@ const login=async(email,password)=>{
         const res=await axios.post(`${cleanAPI_URL}/api/auth/login`,{
             email,
             password
-
         });
-      const {token,user}=res.data;
+        
+        if (res.data.requiresOtp) {
+            return { success: true, requiresOtp: true, email: res.data.email, devOtp: res.data.devOtp };
+        }
+
+        const {token,user}=res.data;
         setToken(token);
         setUser(user)
         localStorage.setItem("token",token);
@@ -63,6 +67,25 @@ const login=async(email,password)=>{
     }
 };
 
+const verifyLoginOtp=async(email, otp)=>{
+    try {
+        const res=await axios.post(`${cleanAPI_URL}/api/auth/verify-login-otp`,{
+            email,
+            otp
+        });
+        const {token,user}=res.data;
+        setToken(token);
+        setUser(user)
+        localStorage.setItem("token",token);
+        localStorage.setItem("user",JSON.stringify(user));
+        return {success:true, user}
+    } catch (error) {
+        return {success:false,
+            message:error.response?.data?.message || "OTP Verification failed"
+        }
+    }
+};
+
 //register
 const register=async (userData)=>{
 try {
@@ -71,7 +94,7 @@ try {
       );
       return {
         success:true,
-        message:res.data.message,
+        message:res.data.message
       }
 } catch (error) {
     return {success:false,
@@ -119,6 +142,7 @@ const refreshUser=async()=>{
             setToken,
             loading,
             login,
+            verifyLoginOtp,
             register,
             logout,
             refreshUser
