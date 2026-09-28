@@ -4,6 +4,7 @@ import axios from 'axios';
 import API_URL from '../../config';
 import Navbar from '../../components/common/Navbar';
 import { verifyEmailStyles as s } from '../../assets/dummyStyles';
+import toast from 'react-hot-toast';
 
 const VerifyEmail = () => {
     const [code, setCode] = useState('');
@@ -27,11 +28,14 @@ const VerifyEmail = () => {
                 code
             });
             if (res.data.success) {
+                toast.success('Email verified successfully! Redirecting to login...');
                 setSuccess('Email verified successfully! Redirecting to login...');
                 setTimeout(() => navigate('/login'), 2000);
             }
         } catch (err) {
-            setError(err.response?.data?.message || 'Verification failed');
+            const errorMsg = err.response?.data?.message || 'Verification failed';
+            toast.error(errorMsg);
+            setError(errorMsg);
         } finally {
             setLoading(false);
         }

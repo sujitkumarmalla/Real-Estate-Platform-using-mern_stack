@@ -9,6 +9,7 @@ import AdminSidebar from '../../components/admin/AdminSidebar';
 import { io } from 'socket.io-client';
 import { chatMessagesStyles as s } from '../../assets/dummyStyles';
 import { HiPaperAirplane, HiUser, HiChevronLeft, HiTrash, HiChatAlt2 } from 'react-icons/hi';
+import toast from 'react-hot-toast';
 
 const Chat = () => {
     const location = useLocation();
@@ -243,7 +244,7 @@ const Chat = () => {
             console.error("Failed to send message", err);
             setNewMessage(textToSend); // Restore message
             const errMsg = err.response?.data?.message || "Failed to send message";
-            alert(errMsg);
+            toast.error(errMsg);
         }
     };
 

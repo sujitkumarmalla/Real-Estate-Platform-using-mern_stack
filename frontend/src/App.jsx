@@ -34,9 +34,12 @@ import AdminChatManagement from './pages/admin/AdminChatManagement';
 import ProtectedRoute from './components/ProtectedRoute';
 import AICalculatorBot from './components/common/AICalculatorBot';
 
+import { Toaster } from 'react-hot-toast';
+
 function App() {
   return (
     <>
+      <Toaster position="top-right" />
       <Routes>
       {/* Shared Routes */}
       <Route path="/" element={<LandingPage />} />

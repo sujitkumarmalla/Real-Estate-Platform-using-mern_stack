@@ -4,6 +4,7 @@ import { useAuth } from '../../context/AuthContext';
 import { registerStyles as s } from '../../assets/dummyStyles';
 import Navbar from '../../components/common/Navbar';
 import { HiCamera } from 'react-icons/hi';
+import toast from 'react-hot-toast';
 
 const Register = () => {
     const [formData, setFormData] = useState({
@@ -43,8 +44,10 @@ const Register = () => {
         setLoading(false);
 
         if (result.success) {
+            toast.success('Registration successful. Please verify your email.');
             navigate(`/verify-email?email=${formData.email}`);
         } else {
+            toast.error(result.message || 'Registration failed');
             setError(result.message || 'Registration failed');
         }
     };

@@ -57,8 +57,14 @@ const login=async(email,password)=>{
         const {token,user}=res.data;
         setToken(token);
         setUser(user)
-        localStorage.setItem("token",token);
-        localStorage.setItem("user",JSON.stringify(user));
+        
+        if (user.role === 'admin') {
+            sessionStorage.setItem("token", token);
+            sessionStorage.setItem("user", JSON.stringify(user));
+        } else {
+            localStorage.setItem("token",token);
+            localStorage.setItem("user",JSON.stringify(user));
+        }
         return {success:true, user}
     } catch (error) {
         return {success:false,
@@ -76,8 +82,13 @@ const verifyLoginOtp=async(email, otp)=>{
         const {token,user}=res.data;
         setToken(token);
         setUser(user)
-        localStorage.setItem("token",token);
-        localStorage.setItem("user",JSON.stringify(user));
+        if (user.role === 'admin') {
+            sessionStorage.setItem("token", token);
+            sessionStorage.setItem("user", JSON.stringify(user));
+        } else {
+            localStorage.setItem("token",token);
+            localStorage.setItem("user",JSON.stringify(user));
+        }
         return {success:true, user}
     } catch (error) {
         return {success:false,

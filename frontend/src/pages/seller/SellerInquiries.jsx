@@ -7,6 +7,7 @@ import axios from 'axios';
 import API_URL from '../../config';
 import { useAuth } from '../../context/AuthContext';
 import { HiChatAlt, HiUser, HiPhone, HiMail, HiCalendar } from 'react-icons/hi';
+import toast from 'react-hot-toast';
 
 const SellerInquiries = () => {
     const navigate = useNavigate();
@@ -27,7 +28,7 @@ const SellerInquiries = () => {
             navigate(`/chat?id=${res.data._id}`);
         } catch (err) {
             console.error("Failed to start chat from lead:", err);
-            alert("Failed to start chat. Please try again.");
+            toast.error("Failed to start chat. Please try again.");
         }
     };
 

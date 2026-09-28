@@ -7,6 +7,7 @@ import API_URL from '../../config';
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { HiCloudUpload, HiX } from 'react-icons/hi';
+import toast from 'react-hot-toast';
 
 const AddProperty = () => {
     const [formData, setFormData] = useState({
@@ -51,7 +52,7 @@ const AddProperty = () => {
         e.preventDefault();
 
         if (images.length === 0) {
-            alert("Please upload at least one property image.");
+            toast.error("Please upload at least one property image.");
             return;
         }
 
@@ -71,7 +72,7 @@ const AddProperty = () => {
             navigate('/seller/properties');
         } catch (error) {
             console.error("Failed to add property", error);
-            alert(error.response?.data?.message || "Failed to add property");
+            toast.error(error.response?.data?.message || "Failed to add property");
         } finally {
             setLoading(false);
         }

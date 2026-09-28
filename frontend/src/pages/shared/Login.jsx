@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { loginStyles as s } from '../../assets/dummyStyles';
 import Navbar from '../../components/common/Navbar';
+import toast from 'react-hot-toast';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -34,11 +35,14 @@ const Login = () => {
 
         if (result.success) {
             if (result.requiresOtp) {
+                toast.success('OTP sent to your email');
                 setStep(2);
             } else {
+                toast.success('Logged in successfully');
                 handleLoginSuccess(result.user);
             }
         } else {
+            toast.error(result.message || 'Invalid email or password');
             setError(result.message || 'Invalid email or password');
         }
     };
@@ -52,8 +56,10 @@ const Login = () => {
         setLoading(false);
 
         if (result.success) {
+            toast.success('Logged in successfully');
             handleLoginSuccess(result.user);
         } else {
+            toast.error(result.message || 'Invalid OTP');
             setError(result.message || 'Invalid OTP');
         }
     };

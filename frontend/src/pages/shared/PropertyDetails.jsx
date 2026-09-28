@@ -8,6 +8,7 @@ import PropertyCard from '../../components/PropertyCard';
 import { propertyDetailsStyles as s } from '../../assets/dummyStyles';
 import { HiLocationMarker, HiHome, HiViewGrid, HiPhone, HiChatAlt2, HiCheckCircle, HiArrowLeft, HiHeart, HiOutlineHeart } from 'react-icons/hi';
 import { useAuth } from '../../context/AuthContext';
+import toast from 'react-hot-toast';
 
 const PropertyDetails = () => {
     const { id } = useParams();
@@ -48,6 +49,7 @@ const PropertyDetails = () => {
             setError(null);
         } catch (err) {
             console.error("Failed to fetch property details:", err);
+            toast.error("Property not found or failed to load.");
             setError("Property not found or failed to load.");
         } finally {
             setLoading(false);
@@ -73,6 +75,7 @@ const PropertyDetails = () => {
             }
         } catch (err) {
             console.error("Failed to toggle wishlist:", err);
+            toast.error("Failed to update wishlist");
         }
     };
 
@@ -94,7 +97,7 @@ const PropertyDetails = () => {
             setInquiryMessage("");
         } catch (err) {
             console.error("Failed to send inquiry:", err);
-            alert("Failed to send inquiry. Please try again.");
+            toast.error("Failed to send inquiry. Please try again.");
         } finally {
             setInquiryLoading(false);
         }
@@ -115,6 +118,7 @@ const PropertyDetails = () => {
             navigate(`/chat?id=${res.data._id}`);
         } catch (err) {
             console.error("Failed to start chat:", err);
+            toast.error("Failed to start chat");
         }
     };
 

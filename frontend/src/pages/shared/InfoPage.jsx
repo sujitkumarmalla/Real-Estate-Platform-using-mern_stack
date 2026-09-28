@@ -6,6 +6,7 @@ import Navbar from '../../components/common/Navbar';
 import Footer from '../../components/common/Footer';
 import { contactStyles as c } from '../../assets/dummyStyles';
 import { HiPhone, HiMail, HiLocationMarker, HiCheckCircle } from 'react-icons/hi';
+import toast from 'react-hot-toast';
 
 const InfoPage = () => {
     const location = useLocation();
@@ -37,9 +38,12 @@ const InfoPage = () => {
                 role: 'buyer',
                 message: ''
             });
+            toast.success("Message sent successfully!");
         } catch (err) {
             console.error("Contact form error", err);
-            setError(err.response?.data?.message || 'Failed to send contact inquiry. Please try again.');
+            const errorMsg = err.response?.data?.message || 'Failed to send contact inquiry. Please try again.';
+            toast.error(errorMsg);
+            setError(errorMsg);
         } finally {
             setSubmitting(false);
         }

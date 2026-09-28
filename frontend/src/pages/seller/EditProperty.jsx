@@ -7,6 +7,7 @@ import API_URL from '../../config';
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate, useParams } from 'react-router-dom';
 import { HiCloudUpload, HiX, HiSave } from 'react-icons/hi';
+import toast from 'react-hot-toast';
 
 const EditProperty = () => {
     const { id } = useParams();
@@ -58,7 +59,7 @@ const EditProperty = () => {
                 setLoading(false);
             } catch (error) {
                 console.error("Failed to fetch property", error);
-                alert("Property not found or unauthorized");
+                toast.error("Property not found or unauthorized");
                 navigate('/seller/properties');
             }
         };
@@ -90,7 +91,7 @@ const EditProperty = () => {
         e.preventDefault();
 
         if (existingImages.length === 0 && newImages.length === 0) {
-            alert("Please upload at least one property image.");
+            toast.error("Please upload at least one property image.");
             return;
         }
 
@@ -111,7 +112,7 @@ const EditProperty = () => {
             navigate('/seller/properties');
         } catch (error) {
             console.error("Failed to update property", error);
-            alert(error.response?.data?.message || "Failed to update property");
+            toast.error(error.response?.data?.message || "Failed to update property");
         } finally {
             setSubmitting(false);
         }

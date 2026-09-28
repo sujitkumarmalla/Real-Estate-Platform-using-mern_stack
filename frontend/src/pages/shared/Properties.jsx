@@ -8,6 +8,7 @@ import PropertyCard from '../../components/PropertyCard';
 import { propertiesStyles as s } from '../../assets/dummyStyles';
 import { HiAdjustments, HiSearch, HiX, HiFilter } from 'react-icons/hi';
 import { useAuth } from '../../context/AuthContext';
+import toast from 'react-hot-toast';
 
 const Properties = () => {
     const { user, token } = useAuth();
@@ -46,6 +47,7 @@ const Properties = () => {
             setError(null);
         } catch (err) {
             console.error("Failed to fetch properties:", err);
+            toast.error("Failed to load properties. Please try again.");
             setError("Failed to load properties. Please try again.");
         } finally {
             setLoading(false);

@@ -9,6 +9,7 @@ import API_URL from '../../config'
 import banner from "../../assets/bannerimage.png"
 import PropertyCard from '../../components/PropertyCard'
 import Footer from '../../components/common/Footer'
+import toast from 'react-hot-toast'
 
 const LandingPage = () => {
   const navigate=useNavigate();
@@ -87,6 +88,7 @@ const LandingPage = () => {
       setError(null)
     } catch (error) {
        console.error("Failed to load properties.Please try again");
+       toast.error("Failed to load properties");
        setError("Failed to load properties");
     }finally{
       setLoading(false);

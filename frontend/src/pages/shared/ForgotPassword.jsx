@@ -4,6 +4,7 @@ import axios from 'axios';
 import API_URL from '../../config';
 import Navbar from '../../components/common/Navbar';
 import { forgotPasswordStyles as s } from '../../assets/dummyStyles';
+import toast from 'react-hot-toast';
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');
@@ -21,13 +22,17 @@ const ForgotPassword = () => {
             const res = await axios.post(`${API_URL.replace(/\/$/, '')}/api/auth/forgot-password`, { email });
             if (res.data.success) {
                 if (res.data.resetUrl) {
+                    toast.success(res.data.message);
                     setSuccess(res.data.message);
                 } else {
+                    toast.success('Password reset link sent to your email!');
                     setSuccess('Password reset link sent to your email!');
                 }
             }
         } catch (err) {
-            setError(err.response?.data?.message || 'Failed to send reset link');
+            const errorMsg = err.response?.data?.message || 'Failed to send reset link';
+            toast.error(errorMsg);
+            setError(errorMsg);
         } finally {
             setLoading(false);
         }

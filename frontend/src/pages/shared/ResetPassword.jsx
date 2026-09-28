@@ -4,6 +4,7 @@ import axios from 'axios';
 import API_URL from '../../config';
 import Navbar from '../../components/common/Navbar';
 import { resetPasswordStyles as s } from '../../assets/dummyStyles';
+import toast from 'react-hot-toast';
 
 const ResetPassword = () => {
     const { token } = useParams();
@@ -17,6 +18,7 @@ const ResetPassword = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (password !== confirmPassword) {
+            toast.error('Passwords do not match');
             return setError('Passwords do not match');
         }
         setError('');
@@ -26,11 +28,14 @@ const ResetPassword = () => {
         try {
             const res = await axios.post(`${API_URL.replace(/\/$/, '')}/api/auth/reset-password/${token}`, { password });
             if (res.data.success) {
+                toast.success('Password reset successful! Redirecting to login...');
                 setSuccess('Password reset successful! Redirecting to login...');
                 setTimeout(() => navigate('/login'), 2000);
             }
         } catch (err) {
-            setError(err.response?.data?.message || 'Failed to reset password');
+            const errorMsg = err.response?.data?.message || 'Failed to reset password';
+            toast.error(errorMsg);
+            setError(errorMsg);
         } finally {
             setLoading(false);
         }
