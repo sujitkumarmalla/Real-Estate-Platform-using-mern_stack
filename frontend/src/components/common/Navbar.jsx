@@ -84,14 +84,6 @@ const Navbar = () => {
                     >
                         Login
                     </Link>
-
-                    <Link
-                        to="/register"
-                        className={s.navLink}
-                        onClick={() => setIsOpen(false)}
-                    >
-                        Register
-                    </Link>
                 </>
             )}
         </>

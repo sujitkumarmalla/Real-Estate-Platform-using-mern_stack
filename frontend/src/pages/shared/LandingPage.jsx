@@ -381,6 +381,30 @@ const LandingPage = () => {
            </div>
         </section>
 
+         {/* Image Gallery Section */}
+         <section className="py-20 px-4 md:px-8 max-w-[1280px] mx-auto animate-slide-up">
+            <div className="text-center mb-12">
+              <span className="bg-[#ccfbf1] text-[#0d9488] px-3 py-1 rounded-full text-sm font-bold uppercase tracking-wider">Visuals</span>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-[#111827] mt-4 mb-4">A Glimpse of Paradise</h2>
+              <p className="text-[#6b7280] max-w-2xl mx-auto">Explore stunning properties that blend modern architecture with breathtaking landscapes.</p>
+            </div>
+            
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="col-span-2 md:col-span-2 row-span-2 h-[400px]">
+                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Gallery House 1" className="w-full h-full object-cover rounded-2xl shadow-md hover:scale-[1.03] transition-transform duration-500"/>
+                </div>
+                <div className="col-span-1 md:col-span-1 h-[192px]">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Gallery House 2" className="w-full h-full object-cover rounded-2xl shadow-md hover:scale-[1.03] transition-transform duration-500"/>
+                </div>
+                <div className="col-span-1 md:col-span-1 h-[192px]">
+                    <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Gallery House 3" className="w-full h-full object-cover rounded-2xl shadow-md hover:scale-[1.03] transition-transform duration-500"/>
+                </div>
+                <div className="col-span-2 md:col-span-2 h-[192px]">
+                    <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Gallery House 4" className="w-full h-full object-cover rounded-2xl shadow-md hover:scale-[1.03] transition-transform duration-500"/>
+                </div>
+            </div>
+         </section>
+
         <Footer />
     </div>
   )
