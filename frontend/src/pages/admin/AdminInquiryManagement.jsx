@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { adminInquiriesStyles as s, adminLayoutStyles as ls } from '../../assets/dummyStyles';
 import AdminSidebar from '../../components/admin/AdminSidebar';
+import AdminHeader from '../../components/admin/AdminHeader';
 import axios from 'axios';
 import API_URL from '../../config';
 import { useAuth } from '../../context/AuthContext';
@@ -38,10 +39,11 @@ const AdminInquiryManagement = () => {
             
             <div className={ls.mainWrapper}>
                 <main className={ls.mainContent}>
-                    <div className={s.headerContainer}>
-                        <h1 className={s.headerTitle}>All Inquiries</h1>
-                        <p className={s.headerSubtitle}>Manage and monitor all buyer-seller interactions</p>
-                    </div>
+                    <AdminHeader 
+                        setSidebarOpen={setSidebarOpen} 
+                        title="All Inquiries" 
+                        subtitle="Manage and monitor all buyer-seller interactions"
+                    />
 
                     <div className={s.listContainer}>
                         {inquiries.length > 0 ? (

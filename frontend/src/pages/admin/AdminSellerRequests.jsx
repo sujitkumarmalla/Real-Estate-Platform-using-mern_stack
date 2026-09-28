@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { sellerRequestsStyles as s, adminLayoutStyles as ls } from '../../assets/dummyStyles';
 import AdminSidebar from '../../components/admin/AdminSidebar';
+import AdminHeader from '../../components/admin/AdminHeader';
 import axios from 'axios';
 import API_URL from '../../config';
 import { useAuth } from '../../context/AuthContext';
@@ -50,12 +51,11 @@ const AdminSellerRequests = () => {
             
             <div className={ls.mainWrapper}>
                 <main className={ls.mainContent}>
-                    <div className={s.headerContainer}>
-                        <div>
-                            <h1 className={s.pageTitle}>Seller Requests</h1>
-                            <p className={s.pageSubtitle}>Review and approve pending seller accounts</p>
-                        </div>
-                    </div>
+                    <AdminHeader 
+                        setSidebarOpen={setSidebarOpen} 
+                        title="Seller Requests" 
+                        subtitle="Review and approve pending seller accounts"
+                    />
 
                     <div className={s.card}>
                         <div className={s.cardInner}>

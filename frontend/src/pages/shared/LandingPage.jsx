@@ -178,11 +178,11 @@ const LandingPage = () => {
         <Navbar />
         
         {/* Hero Section */}
-        <section className={s.heroSection}>
-          <div className={s.heroContent}>
-            <span className={s.badge}>Trusted by 20,000+ homeowners</span>
+        <section className={`${s.heroSection} relative overflow-hidden`}>
+          <div className={`${s.heroContent} animate-slide-up`}>
+            <span className={`${s.badge} animate-pulse`}>Trusted by 20,000+ homeowners</span>
             <h1 className={s.heroTitle}>
-              Find Your <span className={s.textGradient}>Perfect</span> Next Chapter
+              Find Your <span className={`${s.textGradient} animate-gradient`}>Perfect</span> Next Chapter
             </h1>
             <p className={s.heroSubtitle}>
               Experience the most advanced real estate search platform. Discover verified 
@@ -246,15 +246,15 @@ const LandingPage = () => {
             </div>
           </div>
           
-          <div className={s.heroImageContainer}>
+          <div className={`${s.heroImageContainer} animate-fade-in`}>
             <div className={s.imageWrapper}>
-              <img src={banner} className={s.heroImage} alt="Real Estate Banner"/>
-              <div className={s.verifiedBadge}>
+              <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" className={`${s.heroImage} transition-transform duration-700 hover:scale-105`} alt="Premium Real Estate"/>
+              <div className={`${s.verifiedBadge} animate-bounce-slow`}>
                 <div className={s.badgeIconWrapper}>
                    <HiShieldCheck className="text-primary" size={24} />
                 </div>
                 <div>
-                   <p className={s.badgeTitle}>100% Verified</p>
+                   <p className={s.badgeTitle}>100% Govt Approved</p>
                    <p className={s.badgeText}>Safe & Secure Listings</p>
                 </div>
               </div>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { adminDashboardStyles as s, adminLayoutStyles as ls } from '../../assets/dummyStyles';
 import AdminSidebar from '../../components/admin/AdminSidebar';
+import AdminHeader from '../../components/admin/AdminHeader';
 import axios from 'axios';
 import API_URL from '../../config';
 import { useAuth } from '../../context/AuthContext';
@@ -40,15 +41,15 @@ const AdminDashboard = () => {
             
             <div className={ls.mainWrapper}>
                 <main className={ls.mainContent}>
-                    <div className={s.headerContainer}>
-                        <div>
-                            <h1 className={s.pageTitle}>Admin Dashboard</h1>
-                            <p className={s.pageSubtitle}>System overview and analytics</p>
-                        </div>
+                    <AdminHeader 
+                        setSidebarOpen={setSidebarOpen} 
+                        title="Admin Dashboard" 
+                        subtitle="System overview and analytics"
+                    >
                         <button onClick={fetchStats} className={s.refreshButton}>
                             <HiRefresh size={18} className="mr-2" /> Refresh
                         </button>
-                    </div>
+                    </AdminHeader>
 
                     <div className={s.statsGrid}>
                         <div className={s.statCard}>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { adminLayoutStyles as ls, adminDashboardStyles as ds } from '../../assets/dummyStyles';
 import AdminSidebar from '../../components/admin/AdminSidebar';
+import AdminHeader from '../../components/admin/AdminHeader';
 import axios from 'axios';
 import API_URL from '../../config';
 import { useAuth } from '../../context/AuthContext';
@@ -90,11 +91,11 @@ const AdminChatManagement = () => {
             <div className={ls.mainWrapper}>
                 <main className={ls.mainContent}>
                     {/* Header */}
-                    <div className="flex justify-between items-start mb-8 flex-wrap gap-6 text-left">
-                        <div>
-                            <h1 className={ds.pageTitle}>Chat Management</h1>
-                            <p className={ds.pageSubtitle}>Monitor and review buyer-seller conversations on the platform</p>
-                        </div>
+                    <AdminHeader 
+                        setSidebarOpen={setSidebarOpen} 
+                        title="Chat Management" 
+                        subtitle="Monitor and review buyer-seller conversations on the platform"
+                    >
                         <div className="relative w-full max-w-xs sm:max-w-sm mt-2 sm:mt-0">
                             <HiSearch size={20} className="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted" />
                             <input 
@@ -105,7 +106,7 @@ const AdminChatManagement = () => {
                                 className="w-full pl-11 pr-4 py-3 rounded-2xl border border-border bg-white text-sm outline-none focus:border-primary shadow-sm transition-all duration-200"
                             />
                         </div>
-                    </div>
+                    </AdminHeader>
 
                     {/* Chat Conversation Table */}
                     <div className="card-premium overflow-hidden mb-8 p-0">

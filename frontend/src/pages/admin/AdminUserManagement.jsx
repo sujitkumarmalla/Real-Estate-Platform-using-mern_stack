@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { adminUsersStyles as s, adminLayoutStyles as ls } from '../../assets/dummyStyles';
 import AdminSidebar from '../../components/admin/AdminSidebar';
+import AdminHeader from '../../components/admin/AdminHeader';
 import axios from 'axios';
 import API_URL from '../../config';
 import { useAuth } from '../../context/AuthContext';
@@ -62,15 +63,15 @@ const AdminUserManagement = () => {
             
             <div className={ls.mainWrapper}>
                 <main className={ls.mainContent}>
-                    <div className={s.containerHeader}>
-                        <div>
-                            <h1 className={s.headerTitle}>User Management</h1>
-                            <p className={s.headerSubtitle}>Monitor and manage platform users</p>
-                        </div>
+                    <AdminHeader 
+                        setSidebarOpen={setSidebarOpen} 
+                        title="User Management" 
+                        subtitle="Monitor and manage platform users"
+                    >
                         <div className={s.userCount}>
                             Total Users: <span className={s.userCountSpan}>{users.length}</span>
                         </div>
-                    </div>
+                    </AdminHeader>
 
                     <div className={s.cardContainer}>
                         <div className={s.tableWrapper}>
