@@ -22,6 +22,7 @@ const Chat = () => {
     const [activeChat, setActiveChat] = useState(null);
     const [loading, setLoading] = useState(true);
     const [sidebarOpen, setSidebarOpen] = useState(false); // For seller/admin sidebar
+    const [partnerOnline, setPartnerOnline] = useState(false);
     const scrollRef = useRef();
     const socket = useRef();
     const activeChatRef = useRef();
@@ -132,6 +133,16 @@ const Chat = () => {
             }));
         });
 
+        socket.current.on('userStatusUpdate', (data) => {
+            const active = activeChatRef.current;
+            if (active && active.partner) {
+                const partnerId = active.partner._id || active.partner;
+                if (data.userId === partnerId.toString()) {
+                    setPartnerOnline(data.isOnline);
+                }
+            }
+        });
+
         return () => {
             if (socket.current) {
                 socket.current.disconnect();
@@ -175,6 +186,13 @@ const Chat = () => {
             
             if (socket.current) {
                 socket.current.emit('joinChat', { chatId: id, userId: user._id || user.id });
+                
+                const partnerId = res.data.partner?._id || res.data.partner;
+                if (partnerId) {
+                    socket.current.emit('checkUserStatus', partnerId, (isOnline) => {
+                        setPartnerOnline(isOnline);
+                    });
+                }
             }
         } catch (err) {
             console.error("Failed to fetch chat details", err);
@@ -349,7 +367,9 @@ const Chat = () => {
                                     </div>
                                     <div>
                                         <p className={s.chatPartnerName}>{activeChat.partner?.name}</p>
-                                        <p className="text-[10px] text-green-500 font-bold uppercase">Online</p>
+                                        <p className={`text-[10px] font-bold uppercase ${partnerOnline ? 'text-green-400' : 'text-gray-400'}`}>
+                                            {partnerOnline ? 'Online' : 'Offline'}
+                                        </p>
                                     </div>
                                 </div>
                                 {activeChat.property && (
@@ -377,13 +397,13 @@ const Chat = () => {
                                             <span className={s.messageTime}>
                                                 {new Date(msg.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                                                 {own && (
-                                                    <span className="ml-1 text-[10px] font-bold">
+                                                    <span className="ml-1 text-[13px] font-extrabold tracking-tighter inline-block relative -top-[1px]">
                                                         {msg.status === 'read' ? (
-                                                            <span className="text-blue-200">✓✓</span>
+                                                            <span className="text-[#3be7ff] drop-shadow-sm">✓✓</span>
                                                         ) : msg.status === 'delivered' ? (
-                                                            <span className="text-gray-300">✓✓</span>
+                                                            <span className="text-gray-200">✓✓</span>
                                                         ) : (
-                                                            <span className="text-gray-300">✓</span>
+                                                            <span className="text-gray-200">✓</span>
                                                         )}
                                                     </span>
                                                 )}

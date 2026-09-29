@@ -87,7 +87,7 @@ const AdminPropertyManagement = () => {
                                                 <p className="text-xs text-text-muted">{p.seller?.email || ''}</p>
                                             </td>
                                             <td className="p-6 font-bold text-primary text-sm">
-                                                ${p.price?.toLocaleString()}
+                                                ₹{p.price?.toLocaleString()}
                                             </td>
                                             <td className="p-6">
                                                 <span className={`px-2 py-1 rounded-full text-[10px] font-bold uppercase ${p.status === 'sale' ? 'bg-green-100 text-green-600' : 'bg-gray-100 text-gray-600'}`}>

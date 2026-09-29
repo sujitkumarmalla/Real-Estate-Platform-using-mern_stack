@@ -39,7 +39,7 @@ const PropertyCard = ({ property, isWishlisted, onToggleWishlist }) => {
                     </button>
                 </div>
                 <div className={s.priceOverlay}>
-                    <p className={s.price}>${property.price ? property.price.toLocaleString() : '0'}</p>
+                    <p className={s.price}>₹{property.price ? property.price.toLocaleString() : '0'}</p>
                 </div>
             </div>
 

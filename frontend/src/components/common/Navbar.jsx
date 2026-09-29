@@ -2,16 +2,22 @@ import React, { useState } from 'react';
 import { navbarStyles as s } from '../../assets/dummyStyles';
 import Logo from './Logo';
 import { useAuth } from '../../context/AuthContext';
-import { Link } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { HiMenuAlt3, HiX } from 'react-icons/hi';
 
 const Navbar = () => {
 
     const [isOpen, setIsOpen] = useState(false);
+    const location = useLocation();
 
     const { user, logout } = useAuth();
 
     const toggleMenu = () => setIsOpen(!isOpen);
+
+    const getLinkClass = (path) => {
+        const isActive = location.pathname === path;
+        return `${s.navLink} ${isActive ? 'text-primary bg-primary/10' : ''}`;
+    };
 
     const navLinks = (
         <>
@@ -19,7 +25,7 @@ const Navbar = () => {
                 <>
                     <Link
                         to="/"
-                        className={s.navLink}
+                        className={getLinkClass("/")}
                         onClick={() => setIsOpen(false)}
                     >
                         Home
@@ -27,10 +33,26 @@ const Navbar = () => {
 
                     <Link
                         to="/properties"
-                        className={s.navLink}
+                        className={getLinkClass("/properties")}
                         onClick={() => setIsOpen(false)}
                     >
                         Properties
+                    </Link>
+
+                    <Link
+                        to="/contact"
+                        className={getLinkClass("/contact")}
+                        onClick={() => setIsOpen(false)}
+                    >
+                        Contact Us
+                    </Link>
+
+                    <Link
+                        to="/location"
+                        className={getLinkClass("/location")}
+                        onClick={() => setIsOpen(false)}
+                    >
+                        Location
                     </Link>
                 </>
             )}
@@ -38,7 +60,7 @@ const Navbar = () => {
             {user && user.role === "buyer" && (
                 <Link
                     to="/dashboard"
-                    className={s.navLink}
+                    className={getLinkClass("/dashboard")}
                     onClick={() => setIsOpen(false)}
                 >
                     My Dashboard
@@ -48,7 +70,7 @@ const Navbar = () => {
             {user && user.role === "seller" && (
                 <Link
                     to="/seller"
-                    className={s.navLink}
+                    className={getLinkClass("/seller")}
                     onClick={() => setIsOpen(false)}
                 >
                     Seller Panel
@@ -58,7 +80,7 @@ const Navbar = () => {
             {user && user.role === "admin" && (
                 <Link
                     to="/admin"
-                    className={s.navLink}
+                    className={getLinkClass("/admin")}
                     onClick={() => setIsOpen(false)}
                 >
                     Admin Panel
@@ -68,7 +90,7 @@ const Navbar = () => {
             {user && user.role !== "admin" && (
                 <Link
                     to="/chat"
-                    className={s.navLink}
+                    className={getLinkClass("/chat")}
                     onClick={() => setIsOpen(false)}
                 >
                     Messages
@@ -79,7 +101,7 @@ const Navbar = () => {
                 <>
                     <Link
                         to="/login"
-                        className={s.navLink}
+                        className={getLinkClass("/login")}
                         onClick={() => setIsOpen(false)}
                     >
                         Login

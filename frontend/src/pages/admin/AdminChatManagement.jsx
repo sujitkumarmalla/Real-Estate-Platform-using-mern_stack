@@ -140,7 +140,7 @@ const AdminChatManagement = () => {
                                                                 </p>
                                                                 {chat.property?.price && (
                                                                     <p className="text-[0.75rem] text-primary font-bold">
-                                                                        ${chat.property.price.toLocaleString()}
+                                                                        ₹{chat.property.price.toLocaleString()}
                                                                     </p>
                                                                 )}
                                                             </div>

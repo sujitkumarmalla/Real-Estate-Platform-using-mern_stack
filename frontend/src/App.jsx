@@ -12,6 +12,7 @@ import ResetPassword from './pages/shared/ResetPassword';
 import Chat from './pages/shared/Chat';
 import Upgrade from './pages/shared/Upgrade';
 import InfoPage from './pages/shared/InfoPage';
+import LocationPage from './pages/shared/LocationPage';
 
 // Buyer
 import BuyerDashboard from './pages/buyer/BuyerDashboard';
@@ -58,6 +59,7 @@ function App() {
       <Route path="/privacy" element={<InfoPage />} />
       <Route path="/terms" element={<InfoPage />} />
       <Route path="/contact" element={<InfoPage />} />
+      <Route path="/location" element={<LocationPage />} />
 
       {/* Buyer Routes */}
       <Route element={<ProtectedRoute allowedRoles={['buyer', 'seller', 'admin']} />}>

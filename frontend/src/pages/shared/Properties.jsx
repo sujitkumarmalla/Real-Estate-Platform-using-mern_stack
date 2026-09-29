@@ -24,7 +24,7 @@ const Properties = () => {
 
     // Filters state
     const [filters, setFilters] = useState({
-        city: queryParams.get('city') || '',
+        location: queryParams.get('location') || queryParams.get('city') || '',
         type: queryParams.get('type') || '',
         minPrice: queryParams.get('minPrice') || '',
         maxPrice: queryParams.get('maxPrice') || '',
@@ -107,7 +107,7 @@ const Properties = () => {
 
     const resetFilters = () => {
         setFilters({
-            city: '',
+            location: '',
             type: '',
             minPrice: '',
             maxPrice: '',
@@ -158,10 +158,10 @@ const Properties = () => {
                                     <HiSearch className={s.searchIcon} />
                                     <input 
                                         type="text" 
-                                        name="city"
-                                        placeholder="City or area..."
+                                        name="location"
+                                        placeholder="City, area, or keyword..."
                                         className={s.searchInput}
-                                        value={filters.city}
+                                        value={filters.location}
                                         onChange={handleFilterChange}
                                     />
                                 </div>

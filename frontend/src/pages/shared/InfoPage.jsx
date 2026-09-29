@@ -57,11 +57,22 @@ const InfoPage = () => {
         content = (
             <div className="flex flex-col gap-6 text-left text-text-muted leading-relaxed">
                 <p className="text-lg text-text-main font-semibold">Welcome to RealEstate Platform – the most advanced real estate search app.</p>
+                <div className="bg-[#ccfbf1]/30 p-6 rounded-2xl border border-[#0d9488]/20 flex flex-col gap-3 my-2 shadow-sm">
+                    <h3 className="text-2xl font-bold text-[#0d9488] flex items-center gap-2">
+                        <HiShieldCheck className="text-[#0d9488]" size={28} />
+                        Over 15 Years of Excellence & Trust
+                    </h3>
+                    <p className="text-text-main font-medium leading-relaxed">
+                        Since our inception, we have built a legacy based on unwavering trust, profound market experience, and a commitment to delivering only the best for our clients. 
+                        With over 10,000+ successful transactions, our seasoned team of real estate experts brings deep industry knowledge that empowers buyers, sellers, and renters.
+                    </p>
+                </div>
                 <p>We are dedicated to helping buyers, tenants, and sellers connect seamlessly through verified listings, modern tools, and robust messaging. Our mission is to make finding a place to call home an enjoyable and transparent journey.</p>
                 <p>Founded by experts in technology and property operations, our platform features 3D virtual tours, real-time messaging, map searches, and verified seller credentials. We eliminate the friction in traditional real estate to bring you unmatched value.</p>
                 <h3 className="text-xl font-bold text-text-main mt-4">Our Core Values</h3>
                 <ul className="list-disc pl-6 flex flex-col gap-2">
                     <li><strong>Trust & Verification:</strong> Every listing is strictly audited to protect against scams.</li>
+                    <li><strong>Industry Experience:</strong> Our agents and consultants have decades of combined experience in identifying high-growth real estate investments.</li>
                     <li><strong>Innovation:</strong> Continuously building AI-driven matching and smart communications.</li>
                     <li><strong>Customer Focus:</strong> 24/7 service alerts and zero commission bypass options.</li>
                 </ul>
@@ -149,22 +160,13 @@ const InfoPage = () => {
                                         <p className={c.contactDetail}>mallasonu123000@gmail.com</p>
                                     </div>
                                 </div>
-
-                                <div className={c.contactItem}>
-                                    <div className={c.contactIconWrapper}>
-                                        <HiLocationMarker size={20} />
-                                    </div>
-                                    <div className="text-left">
-                                        <h4 className={c.contactTitle}>Office Location</h4>
-                                        <p className={c.contactDetail}>123 Real Estate Ave, Luxury City,Rasulgarh,BBSR</p>
-                                    </div>
-                                </div>
                             </div>
 
                             <div className={c.quickSupportCard}>
                                 <h4 className={c.quickSupportTitle}>Need Quick Support?</h4>
                                 <p className={c.quickSupportText}>Our average response time is under 2 hours. Log in to chat directly with a support agent.</p>
                             </div>
+
                         </div>
 
                         {/* Right Form Column */}

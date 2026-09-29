@@ -92,6 +92,8 @@ io.on("connection", (socket) => {
       onlineUsers.set(userId.toString(), socket.id);
       console.log(`User ${userId} registered with socket ${socket.id}`);
       
+      io.emit("userStatusUpdate", { userId: userId.toString(), isOnline: true });
+      
       // Mark pending "sent" messages as "delivered" since user just went online
       try {
          const chats = await Chat.find({
@@ -183,11 +185,21 @@ io.on("connection", (socket) => {
       }
    });
 
+   // Check User Status
+   socket.on("checkUserStatus", (userId, callback) => {
+      if (!userId) return;
+      const isOnline = onlineUsers.has(userId.toString());
+      if (typeof callback === 'function') {
+         callback(isOnline);
+      }
+   });
+
    // Disconnect
    socket.on("disconnect", () => {
       console.log("User Disconnected:", socket.id);
       if (socket.userId) {
          onlineUsers.delete(socket.userId);
+         io.emit("userStatusUpdate", { userId: socket.userId, isOnline: false });
       }
    });
 });

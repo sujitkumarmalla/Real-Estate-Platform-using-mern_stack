@@ -233,6 +233,7 @@ export const getAllProperties = async (req, res) => {
     const {
       city,
       area,
+      location,
       pincode,
       propertyType,
       type,
@@ -254,6 +255,13 @@ export const getAllProperties = async (req, res) => {
     if (city) query.city = new RegExp(city, "i");
     if (area) query.area = new RegExp(area, "i");
     if (pincode) query.pincode = pincode;
+    if (location) {
+      query.$or = [
+        { city: new RegExp(location, "i") },
+        { area: new RegExp(location, "i") },
+        { title: new RegExp(location, "i") }
+      ];
+    }
 
     const activeType = propertyType || type;
     if (activeType) {
